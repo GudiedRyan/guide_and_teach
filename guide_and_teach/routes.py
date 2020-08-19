@@ -1,4 +1,4 @@
-from flask import render_template, url_for
+from flask import render_template, url_for, flash, redirect
 from guide_and_teach import app
 from guide_and_teach.forms import RegistrationForm, LoginForm
 
@@ -13,4 +13,11 @@ def register():
     form = RegistrationForm()
     if form.validate_on_submit():
         flash("Success!")
-    return render_template('register.html', title='register', form=form)
+    return render_template('register.html', title='Register', form=form)
+
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    form = LoginForm()
+    if form.validate_on_submit():
+        return redirect(url_for('home'))
+    return render_template('login.html', title='Login', form=form)

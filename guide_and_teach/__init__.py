@@ -1,7 +1,11 @@
 import os
 from flask import Flask
+from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
-app.config['SECRET_KEY'] = 'd5f40df13ec35735ece1cf7ec34e408d'
+app.config['SECRET_KEY'] = ''
+app.config['SQLALCHEMY_DATEBASE_URI'] = 'sqlite:///site.db'
+
+db = SQLAlchemy(app)
 
 from guide_and_teach import routes
