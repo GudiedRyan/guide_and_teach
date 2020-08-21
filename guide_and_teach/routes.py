@@ -1,7 +1,7 @@
 from flask import render_template, url_for, flash, redirect
-from guide_and_teach import app
+from guide_and_teach import app, db
 from guide_and_teach.forms import RegistrationForm, LoginForm
-
+from guide_and_teach.models import User, Course
 
 @app.route('/')
 @app.route('/home')
