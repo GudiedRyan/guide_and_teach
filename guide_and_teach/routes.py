@@ -32,7 +32,7 @@ def login():
     if form.validate_on_submit():
         user = User.query.filter_by(username=form.username.data).first()
         if user and bcrypt.check_password_hash(user.password, form.password.data):
-            login_user(user)
+            login_user(user, remember=form.remember.data)
             return redirect(url_for('course_home'))
         else:
             flash('Login failed. Check username and password.', 'danger')
@@ -48,10 +48,15 @@ def logout():
 def create_course():
     form = CourseForm()
     if form.validate_on_submit():
+        course = Course(course_title=form.title.data, course_desc=form.description.data, user=current_user)
+        db.session.add(course)
+        db.session.commit()
         flash('Course created!', 'success')
+        return redirect(url_for('course_home'))
     return render_template('create_course.html', title='New Course', form=form)
 
 @app.route('/course/home')
 @login_required
 def course_home():
-    return render_template('courses_page.html', title='Courses')
+    courses = Course.query.all()
+    return render_template('courses_page.html', title='Courses', courses=courses)
