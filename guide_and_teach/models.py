@@ -18,6 +18,7 @@ class User(db.Model, UserMixin):
 class Course(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     course_title = db.Column(db.String(100), nullable=False)
+    course_desc = db.Column(db.Text, nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     # student = db.relationship('Student', backref='course', lazy=True)
 

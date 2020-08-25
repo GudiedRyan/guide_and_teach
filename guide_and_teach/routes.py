@@ -1,7 +1,7 @@
 import secrets
 from flask import render_template, url_for, flash, redirect, request
 from guide_and_teach import app, db, bcrypt
-from guide_and_teach.forms import RegistrationForm, LoginForm
+from guide_and_teach.forms import RegistrationForm, LoginForm, CourseForm, StudentForm
 from guide_and_teach.models import User, Course
 from flask_login import login_user, current_user, logout_user, login_required
 
@@ -33,8 +33,7 @@ def login():
         user = User.query.filter_by(username=form.username.data).first()
         if user and bcrypt.check_password_hash(user.password, form.password.data):
             login_user(user)
-            next_page = request.args.get('next')
-            return redirect(next_page_) if next_page else redirect(url_for('home'))
+            return redirect(url_for('course_home'))
         else:
             flash('Login failed. Check username and password.', 'danger')
     return render_template('login.html', title='Login', form=form)
@@ -43,3 +42,16 @@ def login():
 def logout():
     logout_user()
     return redirect(url_for('login'))
+
+@app.route('/course/new', methods=['GET', 'POST'])
+@login_required
+def create_course():
+    form = CourseForm()
+    if form.validate_on_submit():
+        flash('Course created!', 'success')
+    return render_template('create_course.html', title='New Course', form=form)
+
+@app.route('/course/home')
+@login_required
+def course_home():
+    return render_template('courses_page.html', title='Courses')
