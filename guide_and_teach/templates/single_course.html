@@ -1,12 +1,10 @@
 {% extends "layout.html" %}
 {% block content %}
-    <h1>Courses</h1>
-    {% for course in courses %}
         <article>
             <table class="yes">
                 <thead>
                     <tr>
-                        <td><a href="{{ url_for('single_course', course_id=course.id) }}">{{ course.course_title }}</a></td>
+                        <td>{{ course.course_title }}</td>
                     </tr>
                 </thead>
                 <tbody>
@@ -17,6 +15,11 @@
                     </tr>
                 </tbody>
             </table>
+            {% if course.user == current_user %}
+            <div>
+                <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{{ url_for('update_course', course_id=course.id)}}">Update</a>
+                <button type="button" class="btn btn-danger btn-sm m-1" data-toggle="modal" data-target="#deleteModal">Delete</button>
+            </div>
+            {% endif %}
         </article>
-    {% endfor %}
 {% endblock content %}

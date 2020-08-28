@@ -61,8 +61,20 @@ def create_course():
 @app.route('/course/home')
 @login_required
 def course_home():
-    # username = current_user.username
-    # user = User.query.filter_by(username=username).first_or_404()
+    # user = User.query.filter_by(username).first_or_404()
     # courses = Course.query.filter_by(user=user)
     courses = Course.query.all()
     return render_template('courses_page.html', title='Courses', courses=courses)
+
+@app.route('/course/<int:course_id>', methods=['GET','POST'])
+@login_required
+def single_course(course_id):
+    course = Course.query.get_or_404(course_id)
+    return render_template('single_course.html', title='Course', course=course)
+
+@app.route('/course/<int:course_id>/update', methods=['GET', 'POST'])
+@login_required
+def update_course(course_id):
+    course = Course.query.get_or_404(course_id)
+    return render_template('about.html', title="it works", course=course)
+    
