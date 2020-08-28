@@ -3,8 +3,20 @@
     <h1>Courses</h1>
     {% for course in courses %}
         <article>
-            {{ course.course_title }}
-            <p>{{ course.course_desc }}</p>
+            <table class="yes">
+                <thead>
+                    <tr>
+                        <td>{{ course.course_title }}</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            <p>{{ course.course_desc }}</p>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
         </article>
     {% endfor %}
 {% endblock content %}

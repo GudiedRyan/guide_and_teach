@@ -30,4 +30,6 @@ p {
     margin-bottom: 20px;
   }
   
-  
+table, thead {
+  border: 1px solid black;
+}
