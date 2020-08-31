@@ -1,6 +1,6 @@
 import os
 import secrets
-from flask import render_template, url_for, flash, redirect, request
+from flask import render_template, url_for, flash, redirect, request, abort
 from guide_and_teach import app, db, bcrypt
 from guide_and_teach.forms import RegistrationForm, LoginForm, CourseForm, StudentForm
 from guide_and_teach.models import User, Course
@@ -55,7 +55,7 @@ def create_course():
         db.session.commit()
         flash('Course created!', 'success')
         return redirect(url_for('course_home'))
-    return render_template('create_course.html', title='New Course', form=form)
+    return render_template('create_course.html', title='New Course', form=form, legend='Add a new course!')
 
 
 @app.route('/course/home')
@@ -76,5 +76,17 @@ def single_course(course_id):
 @login_required
 def update_course(course_id):
     course = Course.query.get_or_404(course_id)
-    return render_template('about.html', title="it works", course=course)
+    if course.user != current_user:
+        abort(403)
+    form = CourseForm()
+    if form.validate_on_submit():
+        course.course_title = form.title.data
+        course.course_desc = form.description.data
+        db.session.commit()
+        flash('Changes have been saved!', 'success')
+        return redirect(url_for('single_course', course_id=course.id))
+    elif request.method == 'GET':
+        form.title.data = course.course_title
+        form.description.data = course.course_desc
+    return render_template('create_course.html', title="Update Course", form=form, legend='Make Changes')
     
