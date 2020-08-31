@@ -29,7 +29,7 @@ class LoginForm(FlaskForm):
 class CourseForm(FlaskForm):
     title = StringField('Title', validators=[DataRequired()])
     description = TextAreaField('Course Description', validators=[DataRequired()])
-    submit = SubmitField('Create Course')
+    submit = SubmitField('Finish')
 
 class StudentForm(FlaskForm):
     student_name = StringField('Student Name', validators=[DataRequired()])
