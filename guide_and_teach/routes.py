@@ -89,4 +89,14 @@ def update_course(course_id):
         form.title.data = course.course_title
         form.description.data = course.course_desc
     return render_template('create_course.html', title="Update Course", form=form, legend='Make Changes')
-    
+
+@app.route('/course/<int:course_id>/delete', methods=['POST'])
+@login_required
+def delete_course(course_id):
+    course = Course.query.get_or_404(course_id)
+    if course.user != current_user:
+        abort(403)
+    db.session.delete(course)
+    db.session.commit()
+    flash('Your course has been deleted.', 'success')
+    return redirect(url_for('course_home'))
