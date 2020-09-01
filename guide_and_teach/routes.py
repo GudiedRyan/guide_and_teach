@@ -61,10 +61,11 @@ def create_course():
 @app.route('/course/home')
 @login_required
 def course_home():
-    # user = User.query.filter_by(username).first_or_404()
-    # courses = Course.query.filter_by(user=user)
+    # teacher = User.query.filter_by(username=username)
+    # courses = Course.query.filter_by(user=teacher)
     courses = Course.query.all()
     return render_template('courses_page.html', title='Courses', courses=courses)
+    
 
 @app.route('/course/<int:course_id>', methods=['GET','POST'])
 @login_required
