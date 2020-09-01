@@ -105,4 +105,7 @@ def delete_course(course_id):
 @app.route('/course/add_student', methods = ['GET', 'POST'])
 @login_required
 def add_student():
-    return render_template('home', title="Add Student")
+    form = StudentForm()
+    # if form.validate_on_submit():
+    #     student = Student(student_name=student_name)
+    return render_template('student.html', title="Add Student", form=form)
