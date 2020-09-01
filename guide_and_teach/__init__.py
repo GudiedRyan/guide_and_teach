@@ -17,4 +17,4 @@ login_manager.login_view = 'login'
 login_manager.login_message_category = 'info'
 app.static_folder = 'static'
 
-from guide_and_teach import routes
+from guide_and_teach import routes, models
