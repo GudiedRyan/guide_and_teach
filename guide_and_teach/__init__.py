@@ -6,9 +6,8 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 from flask_login import LoginManager
 
-generated_key = secrets.token_urlsafe(20)
 app = Flask(__name__)
-app.config['SECRET_KEY'] = generated_key
+app.config['SECRET_KEY'] = os.environ.get('GAT_SECRET_KEY')
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///site.db'
 db = SQLAlchemy(app)
 migrate = Migrate(app, db)
