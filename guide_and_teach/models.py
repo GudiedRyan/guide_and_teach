@@ -20,10 +20,15 @@ class Course(db.Model):
     course_title = db.Column(db.String(100), nullable=False)
     course_desc = db.Column(db.Text, nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
-    # student = db.relationship('Student', backref='course', lazy=True)
+    student = db.relationship('Student', backref='class', lazy=True)
 
     def __repr__(self):
         return f"Course('{self.course_title}')"
+
+class Student(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    student_name = db.Column(db.String(50), nullable=False)
+    course_id = db.Column(db.Integer, db.ForeignKey('course.id'), nullable=False)
 
 
 

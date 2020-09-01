@@ -101,3 +101,8 @@ def delete_course(course_id):
     db.session.commit()
     flash('Your course has been deleted.', 'success')
     return redirect(url_for('course_home'))
+
+@app.route('/course/add_student', methods = ['GET', 'POST'])
+@login_required
+def add_student():
+    return render_template('home', title="Add Student")
