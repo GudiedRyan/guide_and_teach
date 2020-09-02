@@ -27,8 +27,9 @@ class Course(db.Model):
         return f"Course('{self.course_title}')"
 
 class Student(db.Model):
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), primary_key=True)
-    course_id = db.Column(db.Integer, db.ForeignKey('course.id'), primary_key=True)
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+    course_id = db.Column(db.Integer, db.ForeignKey('course.id'))
     student_name = db.Column(db.String(50))
     teacher = db.relationship('User', backref="user")
     courses = db.relationship('Course', backref="course")
