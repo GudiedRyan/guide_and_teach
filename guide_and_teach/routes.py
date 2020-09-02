@@ -69,7 +69,8 @@ def course_home():
 @login_required
 def single_course(course_id):
     course = Course.query.get_or_404(course_id)
-    return render_template('single_course.html', title='Course', course=course)
+    students = Student.query.all()
+    return render_template('single_course.html', title='Course', course=course, students=students)
 
 @app.route('/course/<int:course_id>/update', methods=['GET', 'POST'])
 @login_required
@@ -113,4 +114,4 @@ def add_student(course_id):
         db.session.commit()
         flash('Student Added!', 'success')
         return redirect(url_for('course_home'))
-    return render_template('student.html', title="Add Student", form=form)
+    return render_template('student.html', title="Add Student", form=form, legend="Add a Student")

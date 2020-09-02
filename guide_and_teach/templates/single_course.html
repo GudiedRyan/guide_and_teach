@@ -6,13 +6,23 @@
                     <tr>
                         <td>{{ course.course_title }}</td>
                     </tr>
-                </thead>
-                <tbody>
                     <tr>
                         <td>
                             <p>{{ course.course_desc }}</p>
                         </td>
                     </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Students:</td>
+                    </tr>
+                    {% for student in students %}
+                    {% if student.course == course %}
+                    <tr>
+                        <td>{{ student.student_name }}</td>
+                    </tr>
+                    {% endif %}
+                    {% endfor %}
                 </tbody>
             </table>
             {% if course.user == current_user %}
