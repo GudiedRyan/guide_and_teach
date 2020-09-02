@@ -3,7 +3,7 @@ import secrets
 from flask import render_template, url_for, flash, redirect, request, abort
 from guide_and_teach import app, db, bcrypt
 from guide_and_teach.forms import RegistrationForm, LoginForm, CourseForm, StudentForm
-from guide_and_teach.models import User, Course
+from guide_and_teach.models import User, Course, Student
 from flask_login import login_user, current_user, logout_user, login_required
 
 @app.route('/')
@@ -100,10 +100,15 @@ def delete_course(course_id):
     flash('Your course has been deleted.', 'success')
     return redirect(url_for('course_home'))
 
-@app.route('/course/add_student', methods = ['GET', 'POST'])
+@app.route('/course/<int:course_id>/add_student', methods = ['GET', 'POST'])
 @login_required
-def add_student():
+def add_student(course_id):
+    course = Course.query.get_or_404(course_id)
     form = StudentForm()
-    # if form.validate_on_submit():
-    #     student = Student(student_name=student_name)
+    if form.validate_on_submit():
+        student = Student(student_name=form.student_name.data, user=current_user, course=course)
+        db.session.add(student)
+        db.session.commit()
+        flash('Student Added!', 'success')
+        return redirect(url_for('course_home'))
     return render_template('student.html', title="Add Student", form=form)
