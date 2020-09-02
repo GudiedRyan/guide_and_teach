@@ -11,7 +11,7 @@ class User(db.Model, UserMixin):
     email = db.Column(db.String(120), unique=True, nullable=False)
     password = db.Column(db.String(60), nullable=False)
     course = db.relationship('Course', backref='user', lazy=True)
-    # student = db.relationship('Student', backref='teacher', lazy=True)
+    student = db.relationship('Student', backref='user', lazy=True)
 
     def __repr__(self):
         return f"User('{self.username}', '{self.email}')"
@@ -21,10 +21,20 @@ class Course(db.Model):
     course_title = db.Column(db.String(100), nullable=False)
     course_desc = db.Column(db.Text, nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
-    # student = db.relationship('Student', backref='course', lazy=True)
+    student = db.relationship('Student', backref='course', lazy=True)
 
     def __repr__(self):
         return f"Course('{self.course_title}')"
+
+class Student(db.Model):
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), primary_key=True)
+    course_id = db.Column(db.Integer, db.ForeignKey('course.id'), primary_key=True)
+    student_name = db.Column(db.String(50))
+    teacher = db.relationship('User', backref="user")
+    courses = db.relationship('Course', backref="course")
+
+    def __repr__(self):
+        return f"Student('{self.student_name}')"
 
 # class Student(db.Model):
 #     id = db.Column(db.Integer, primary_key=True)
