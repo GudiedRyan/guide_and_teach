@@ -69,6 +69,8 @@ def course_home():
 @login_required
 def single_course(course_id):
     course = Course.query.get_or_404(course_id)
+    if course.user != current_user:
+        abort(403)
     students = Student.query.all()
     return render_template('single_course.html', title='Course', course=course, students=students)
 
