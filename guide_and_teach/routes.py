@@ -104,6 +104,8 @@ def delete_course(course_id):
 @login_required
 def add_student(course_id):
     course = Course.query.get_or_404(course_id)
+    if course.user != current_user:
+        abort(403)
     form = StudentForm()
     if form.validate_on_submit():
         student = Student(student_name=form.student_name.data, user=current_user, course=course)
