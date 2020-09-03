@@ -92,6 +92,7 @@ def update_course(course_id):
         form.description.data = course.course_desc
     return render_template('create_course.html', title="Update Course", form=form, legend='Make Changes')
 
+
 @app.route('/course/<int:course_id>/delete', methods=['POST'])
 @login_required
 def delete_course(course_id):
@@ -102,7 +103,6 @@ def delete_course(course_id):
     db.session.commit()
     flash('Your course has been deleted.', 'success')
     return redirect(url_for('course_home'))
-
 @app.route('/course/<int:course_id>/add_student', methods = ['GET', 'POST'])
 @login_required
 def add_student(course_id):
@@ -125,3 +125,14 @@ def single_student(student_id):
     if student.user != current_user:
         abort(403)
     return render_template('single_student.html', title="student.student_name", student=student)
+
+@app.route('/course/student/<int:student_id>/delete', methods=['POST'])
+@login_required
+def delete_student(student_id):
+    student = Student.query.get_or_404(student_id)
+    if student.user != current_user:
+        abort(403)
+    db.session.delete(student)
+    db.session.commit()
+    flash('Your course has been deleted.', 'success')
+    return redirect(url_for('course_home'))
