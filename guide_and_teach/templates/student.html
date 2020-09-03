@@ -7,7 +7,16 @@
             <legend>{{ legend }}</legend>
             <div class="form-group">
                 {{ form.student_name.label(class="form-control-label") }}
-                {{ form.student_name(class="form-control form-control-lg") }}
+                {% if form.student_name.errors %}
+                    {{ form.student_name(class="form-control form-control-lg is-invalid") }}
+                    <div class="invalid-feedback">
+                        {% for error in form.student_name.errors %}
+                            <span>{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    {{ form.student_name(class="form-control form-control-lg") }}
+                {% endif %}
             </div>
         </fieldset>
         <div class="form-group">

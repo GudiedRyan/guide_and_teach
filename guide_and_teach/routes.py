@@ -103,6 +103,7 @@ def delete_course(course_id):
     db.session.commit()
     flash('Your course has been deleted.', 'success')
     return redirect(url_for('course_home'))
+
 @app.route('/course/<int:course_id>/add_student', methods = ['GET', 'POST'])
 @login_required
 def add_student(course_id):
@@ -118,21 +119,21 @@ def add_student(course_id):
         return redirect(url_for('single_course', course_id=course.id))
     return render_template('student.html', title="Add Student", form=form, legend="Add a Student")
 
-@app.route('/course/student/<int:student_id>', methods=['GET', 'POST'])
+@app.route('/course/<int:course_id>/student/<int:student_id>', methods=['GET', 'POST'])
 @login_required
-def single_student(student_id):
+def single_student(student_id, course_id):
     student = Student.query.get_or_404(student_id)
     if student.user != current_user:
         abort(403)
-    return render_template('single_student.html', title="student.student_name", student=student)
+    return render_template('single_student.html', title="student.student_name", student=student, course_id=course_id)
 
-@app.route('/course/student/<int:student_id>/delete', methods=['POST'])
+@app.route('/course/<int:course_id>/student/<int:student_id>/delete', methods=['POST'])
 @login_required
-def delete_student(student_id):
+def delete_student(student_id, course_id):
     student = Student.query.get_or_404(student_id)
     if student.user != current_user:
         abort(403)
     db.session.delete(student)
     db.session.commit()
-    flash('Your course has been deleted.', 'success')
-    return redirect(url_for('course_home'))
+    flash('Student has been deleted.', 'success')
+    return redirect(url_for('single_course', course_id=course_id))
