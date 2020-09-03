@@ -28,6 +28,7 @@
             {% if course.user == current_user %}
             <div>
                 <a class="btn btn-primary btn-sm mt-1 mb-1" href="{{ url_for('add_student', course_id=course.id) }}">Add Student</a>
+                <a class="btn btn-info btn-sm mt-1 mb-1" href="{{ url_for('course_home') }}">Back to Courses</a>
                 <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{{ url_for('update_course', course_id=course.id)}}">Update</a>
                 <button type="button" class="btn btn-danger btn-sm m-1" data-toggle="modal" data-target="#deleteModal">Delete</button>
             </div>
