@@ -137,3 +137,19 @@ def delete_student(student_id, course_id):
     db.session.commit()
     flash('Student has been deleted.', 'success')
     return redirect(url_for('single_course', course_id=course_id))
+
+@app.route('/course/<int:course_id>/student/<int:student_id>/update', methods=['GET', 'POST'])
+@login_required
+def update_student(student_id, course_id):
+    student = Student.query.get_or_404(student_id)
+    if student.user != current_user:
+        abort(403)
+    form = StudentForm()
+    if form.validate_on_submit():
+        student.student_name = form.student_name.data
+        db.session.commit()
+        flash('Changes have been saved!', 'success')
+        return redirect(url_for('single_student', student_id=student.id, course_id=course_id))
+    elif request.method == 'GET':
+        form.student_name.data = student.student_name
+    return render_template('student.html', title="Update Student Info", form=form, legend='Make Changes')
