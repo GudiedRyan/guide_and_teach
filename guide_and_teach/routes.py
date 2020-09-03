@@ -115,5 +115,13 @@ def add_student(course_id):
         db.session.add(student)
         db.session.commit()
         flash('Student Added!', 'success')
-        return redirect(url_for('course_home'))
+        return redirect(url_for('single_course', course_id=course.id))
     return render_template('student.html', title="Add Student", form=form, legend="Add a Student")
+
+@app.route('/course/student/<int:student_id>', methods=['GET', 'POST'])
+@login_required
+def single_student(student_id):
+    student = Student.query.get_or_404(student_id)
+    if student.user != current_user:
+        abort(403)
+    return render_template('single_student.html', title="student.student_name", student=student)

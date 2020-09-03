@@ -19,7 +19,7 @@
                     {% for student in students %}
                     {% if student.course == course %}
                     <tr>
-                        <td>{{ student.student_name }}</td>
+                        <td><a href="{{ url_for('single_student', student_id=student.id) }}">{{ student.student_name }}</a></td>
                     </tr>
                     {% endif %}
                     {% endfor %}
