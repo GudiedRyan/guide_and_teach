@@ -29,12 +29,15 @@ p {
     border-radius: 3px;
     margin-bottom: 20px;
   }
-  
+
+article {
+  display: flex;
+  flex-direction: column;
+}
+
 table {
   border: 1px solid black;
   margin: 10px;
-  display: flex;
-  justify-content: center;
 }
 
 thead {
