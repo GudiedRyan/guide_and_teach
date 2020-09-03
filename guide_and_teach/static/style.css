@@ -32,7 +32,9 @@ p {
   
 table {
   border: 1px solid black;
-  margin: 10px
+  margin: 10px;
+  display: flex;
+  justify-content: center;
 }
 
 thead {
@@ -45,4 +47,8 @@ tr {
 
 td {
   border: .5px solid grey;
+}
+
+h1 {
+  text-align: center;
 }
