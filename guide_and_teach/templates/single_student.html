@@ -9,13 +9,13 @@
                 </thead>
                 <tbody>
                     <tr>
-                        <td>Grades:</td>
+                        <td><strong>Grades:</strong></td>
                     </tr>
                     
                 </tbody>
             </table>
             {% if student.user == current_user %}
-            <div>
+            <div class="ralph">
                 <a class="btn btn-primary btn-sm mt-1 mb-1" href="#">Add Grade</a>
                 <a class="btn btn-info btn-sm mt-1 mb-1" href="{{ url_for('single_course', course_id=course_id) }}">Back to Course Overview</a>
                 <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{{ url_for('update_student', student_id=student.id, course_id=course_id) }}">Update Student Info</a>
