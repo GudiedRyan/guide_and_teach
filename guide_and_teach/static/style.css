@@ -42,6 +42,7 @@ table {
 
 thead {
   border: 1px solid black;
+  margin: 5px;
 }
 
 tr {
@@ -50,8 +51,15 @@ tr {
 
 td {
   border: .5px solid grey;
+  margin-left: 2px;
+  margin-right: 2px;
 }
 
 h1 {
   text-align: center;
+}
+
+.ralph {
+  display: flex;
+  justify-content: space-around;
 }
