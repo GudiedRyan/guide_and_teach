@@ -2,8 +2,8 @@ import os
 import secrets
 from flask import render_template, url_for, flash, redirect, request, abort
 from guide_and_teach import app, db, bcrypt
-from guide_and_teach.forms import RegistrationForm, LoginForm, CourseForm, StudentForm
-from guide_and_teach.models import User, Course, Student
+from guide_and_teach.forms import RegistrationForm, LoginForm, CourseForm, StudentForm, GradeForm
+from guide_and_teach.models import User, Course, Student, Grade
 from flask_login import login_user, current_user, logout_user, login_required
 
 @app.route('/')
@@ -125,7 +125,8 @@ def single_student(student_id, course_id):
     student = Student.query.get_or_404(student_id)
     if student.user != current_user:
         abort(403)
-    return render_template('single_student.html', title="student.student_name", student=student, course_id=course_id)
+    grades = Grade.query.all()
+    return render_template('single_student.html', title="student.student_name", student=student, course_id=course_id, grades=grades)
 
 @app.route('/course/<int:course_id>/student/<int:student_id>/delete', methods=['POST'])
 @login_required
@@ -153,3 +154,18 @@ def update_student(student_id, course_id):
     elif request.method == 'GET':
         form.student_name.data = student.student_name
     return render_template('student.html', title="Update Student Info", form=form, legend='Make Changes')
+
+@app.route('/course/<int:course_id>/student/<int:student_id>/add_grade', methods=['GET', 'POST'])
+@login_required
+def add_grade(course_id, student_id):
+    student = Student.query.get_or_404(student_id)
+    if student.user != current_user:
+        abort(403)
+    form = GradeForm()
+    if form.validate_on_submit():
+        grade = Grade(assignment=form.assignment.data, score=form.score.data, max_score=form.max_score.data, user=current_user, student=student)
+        db.session.add(grade)
+        db.session.commit()
+        flash('Grade added!', 'success')
+        return redirect(url_for('single_student', student_id=student.id, course_id=course_id))
+    return render_template('grade.html', title="Add a new grade", form=form, legend="Add a new Grade")

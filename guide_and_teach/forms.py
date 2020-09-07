@@ -33,7 +33,10 @@ class CourseForm(FlaskForm):
 
 class StudentForm(FlaskForm):
     student_name = StringField('Student Name', validators=[DataRequired()])
-    submit = SubmitField('Add Student')
+    submit = SubmitField('Finish Changes')
 
 class GradeForm(FlaskForm):
-    
+    assignment = StringField('Assignment', validators=[DataRequired()])
+    score = StringField('Score', validators=[DataRequired()])
+    max_score = StringField('Maximum Possible Score', validators=[DataRequired()])
+    submit = SubmitField('Add Changes')

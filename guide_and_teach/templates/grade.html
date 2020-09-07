@@ -1,0 +1,57 @@
+{% extends "layout.html" %}
+{% block content %}
+<div class="content-section">
+    <form method="POST" action="">
+        {{ form.hidden_tag() }}
+        <fieldset class="form-group">
+            <legend>{{ legend }}</legend>
+            <div class="form-group">
+                {{ form.assignment.label(class="form-control-label") }}
+                {% if form.assignment.errors %}
+                    {{ form.assignment(class="form-control form-control-lg is-invalid") }}
+                    <div class="invalid-feedback">
+                        {% for error in form.assignment.errors %}
+                            <span>{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    {{ form.assignment(class="form-control form-control-lg") }}
+                {% endif %}
+            </div>
+            <div class="form-group">
+                {{ form.score.label(class="form-control-label") }}
+                {% if form.score.errors %}
+                    {{ form.score(class="form-control form-control-lg is-invalid") }}
+                    <div class="invalid-feedback">
+                        {% for error in form.score.errors %}
+                            <span>{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    {{ form.score(class="form-control form-control-lg") }}
+                {% endif %}
+            </div>
+            <div class="form-group">
+                {{ form.max_score.label(class="form-control-label") }}
+                {% if form.max_score.errors %}
+                    {{ form.max_score(class="form-control form-control-lg is-invalid") }}
+                    <div class="invalid-feedback">
+                        {% for error in form.max_score.errors %}
+                            <span>{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    {{ form.max_score(class="form-control form-control-lg") }}
+                {% endif %}
+            </div>
+        </fieldset>
+        <div class="form-group">
+            {{ form.submit }}
+        </div>
+    </form>
+</div>
+<p><strong>Note:</strong> Due to the varying needs of teachers, there is a lot of freedom available with this particular form.
+    Rather than restrict teachers to being able to only put numbers in for the points, this now enables teachers to denote assignments however they 
+    see fit. The max score is also able to be less than the score, in the case that the teacher wishes to add extra credit.
+    </p>
+{% endblock content %}
