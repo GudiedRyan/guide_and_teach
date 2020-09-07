@@ -34,3 +34,6 @@ class CourseForm(FlaskForm):
 class StudentForm(FlaskForm):
     student_name = StringField('Student Name', validators=[DataRequired()])
     submit = SubmitField('Add Student')
+
+class GradeForm(FlaskForm):
+    
