@@ -178,7 +178,7 @@ def single_grade(student_id, course_id, grade_id):
         abort(403)
     return render_template('single_grade.html', title=grade.id, student_id=student_id, course_id=course_id, grade=grade)
 
-@app.route('/course/<int:course_id>/student/<int:student_id>/grade/<int:grade_id>/update', methods=['POST'])
+@app.route('/course/<int:course_id>/student/<int:student_id>/grade/<int:grade_id>/update', methods=['GET', 'POST'])
 @login_required
 def update_grade(student_id, course_id, grade_id):
     grade = Grade.query.get_or_404(grade_id)
@@ -191,9 +191,20 @@ def update_grade(student_id, course_id, grade_id):
         grade.max_score = form.max_score.data
         db.session.commit()
         flash('Changes have been saved!', 'success')
-        return redirect(url_for('single_student', student_id=student.id, course_id=course_id))
+        return redirect(url_for('single_grade', student_id=student_id, course_id=course_id, grade_id=grade_id))
     elif request.method == 'GET':
         form.assignment.data = grade.assignment
         form.score.data = grade.score
         form.max_score.data = grade.max_score
     return render_template('grade.html', title="Edit Grade Info", form=form, legend='Edit Grade Information')
+
+@app.route('/course/<int:course_id>/student/<int:student_id>/grade/<int:grade_id>/delete', methods=['POST'])
+@login_required
+def delete_grade(student_id, course_id, grade_id):
+    grade = Grade.query.get_or_404(grade_id)
+    if grade.user != current_user:
+        abort(403)
+    db.session.delete(grade)
+    db.session.commit()
+    flash('Grade has been deleted.', 'success')
+    return redirect(url_for('single_student', course_id=course_id, student_id=student_id))
