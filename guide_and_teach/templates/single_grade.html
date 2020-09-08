@@ -1,34 +1,26 @@
 {% extends "layout.html" %}
 {% block content %}
         <article>
-            <h1>{{ student.student_name }}'s Grades</h1>
+            <h2>{{ grade.assignment }}</h2>
             <table class="cool">
                 <thead>
                     <tr>
-                        <td><strong>ID</strong></td>
                         <td><strong>Assignment</strong></td>
                         <td><strong>score</strong></td>
                     </tr>
                 </thead>
                 <tbody>
-                    {% for grade in grades %}
-                    {% if grade.student == student %}
                     <tr>
-                        <td><a href="{{ url_for('single_grade', course_id=course_id, student_id=student.id, grade_id=grade.id) }}">Assignment {{ grade.id }}</a></td>
                         <td>{{ grade.assignment }}</td> 
                         <td>{{ grade.score }}/{{ grade.max_score }}</td>
                     </tr>
-                    {% endif %}
-                    {% endfor %}
-                    
                 </tbody>
             </table>
-            {% if student.user == current_user %}
+            {% if grade.user == current_user %}
             <div class="ralph">
-                <a class="btn btn-primary btn-sm mt-1 mb-1" href="{{ url_for('add_grade', course_id=course_id, student_id=student.id) }}">Add Grade</a>
-                <a class="btn btn-info btn-sm mt-1 mb-1" href="{{ url_for('single_course', course_id=course_id) }}">Back to Course Overview</a>
-                <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{{ url_for('update_student', student_id=student.id, course_id=course_id) }}">Update Student Info</a>
-                <button type="button" class="btn btn-danger btn-sm m-1" data-toggle="modal" data-target="#deleteModal">Delete Student</button>
+                <a class="btn btn-info btn-sm mt-1 mb-1" href="{{ url_for('single_student', course_id=course_id, student_id=student_id) }}">Back to Student Overview</a>
+                <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{{ url_for('update_grade', student_id=student_id, course_id=course_id, grade_id=grade.id) }}">Update Grading Info</a>
+                <button type="button" class="btn btn-danger btn-sm m-1" data-toggle="modal" data-target="#deleteModal">Delete Grade</button>
             </div>
             {% endif %}
         </article>
@@ -37,14 +29,14 @@
             <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                <h5 class="modal-title" id="deleteModalLabel">Delete Student? All grades for this student will be deleted too.</h5>
+                <h5 class="modal-title" id="deleteModalLabel">Delete Assignment? This cannot be undone.</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
                 </div>
                 <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                <form action="{{ url_for('delete_student', student_id=student.id, course_id=course_id) }}" method="POST">
+                <form action="{{ url_for('delete_grade', student_id=student_id, course_id=course_id, grade_id=grade.id) }}" method="POST">
                     <input class="btn btn-danger" type="submit" value="Delete">
                 </form>
                 </div>
