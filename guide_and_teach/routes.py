@@ -169,3 +169,31 @@ def add_grade(course_id, student_id):
         flash('Grade added!', 'success')
         return redirect(url_for('single_student', student_id=student.id, course_id=course_id))
     return render_template('grade.html', title="Add a new grade", form=form, legend="Add a new Grade")
+
+@app.route('/course/<int:course_id>/student/<int:student_id>/grade/<int:grade_id>/', methods=['GET', 'POST'])
+@login_required
+def single_grade(student_id, course_id, grade_id):
+    grade = Grade.query.get_or_404(grade_id)
+    if grade.user != current_user:
+        abort(403)
+    return render_template('single_grade.html', title=grade.id, student_id=student_id, course_id=course_id, grade=grade)
+
+@app.route('/course/<int:course_id>/student/<int:student_id>/grade/<int:grade_id>/update', methods=['POST'])
+@login_required
+def update_grade(student_id, course_id, grade_id):
+    grade = Grade.query.get_or_404(grade_id)
+    if grade.user != current_user:
+        abort(403)
+    form = GradeForm()
+    if form.validate_on_submit():
+        grade.assignment = form.assignment.data
+        grade.score = form.score.data
+        grade.max_score = form.max_score.data
+        db.session.commit()
+        flash('Changes have been saved!', 'success')
+        return redirect(url_for('single_student', student_id=student.id, course_id=course_id))
+    elif request.method == 'GET':
+        form.assignment.data = grade.assignment
+        form.score.data = grade.score
+        form.max_score.data = grade.max_score
+    return render_template('grade.html', title="Edit Grade Info", form=form, legend='Edit Grade Information')
