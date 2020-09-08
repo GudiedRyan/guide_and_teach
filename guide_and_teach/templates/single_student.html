@@ -1,27 +1,25 @@
 {% extends "layout.html" %}
 {% block content %}
         <article>
+            <h1>{{ student.student_name }} Grades</h1>
             <table class="cool">
                 <thead>
                     <tr>
-                        <td>{{ student.student_name }}</td>
+                        <td><strong>ID</strong></td>
+                        <td><strong>Assignment</strong></td>
+                        <td><strong>score</strong></td>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td><strong>Grades:</strong></td>
-                    </tr>
                     {% for grade in grades %}
                     {% if grade.student == student %}
                     <tr>
-                        <td>{{ grade.assignment }}</td>
+                        <td><a href="{{ url_for('single_grade', course_id=course_id, student_id=student.id, grade_id=grade.id) }}">Assignment {{ grade.id }}</a></td>
+                        <td>{{ grade.assignment }}</td> 
                         <td>{{ grade.score }}/{{ grade.max_score }}</td>
                     </tr>
                     {% endif %}
                     {% endfor %}
-                    <tr>
-
-                    </tr>
                     
                 </tbody>
             </table>
