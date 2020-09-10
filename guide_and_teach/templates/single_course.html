@@ -4,7 +4,7 @@
             <table class="yes">
                 <thead>
                     <tr>
-                        <td>{{ course.course_title }}</td>
+                        <td class="m-1 p-2"><strong>{{ course.course_title }}</strong></td>
                     </tr>
                     <tr>
                         <td>
@@ -14,7 +14,7 @@
                 </thead>
                 <tbody>
                     <tr>
-                        <td>Students:</td>
+                        <td><strong>Students:</strong></td>
                     </tr>
                     {% for student in students %}
                     {% if student.course == course %}
@@ -27,10 +27,12 @@
             </table>
             {% if course.user == current_user %}
             <div class="ralph">
+            <div class="btn-group btn-group ml-4 mr-4" role="group">
                 <a class="btn btn-primary btn-sm mt-1 mb-1" href="{{ url_for('add_student', course_id=course.id) }}">Add Student</a>
                 <a class="btn btn-info btn-sm mt-1 mb-1" href="{{ url_for('course_home') }}">Back to Courses</a>
-                <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{{ url_for('update_course', course_id=course.id)}}">Update</a>
-                <button type="button" class="btn btn-danger btn-sm m-1" data-toggle="modal" data-target="#deleteModal">Delete</button>
+                <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{{ url_for('update_course', course_id=course.id)}}">Update Course Information</a>
+                <button type="button" class="btn btn-danger btn-sm mt-1 mb-1" data-toggle="modal" data-target="#deleteModal">Delete</button>
+            </div>
             </div>
             {% endif %}
         </article>

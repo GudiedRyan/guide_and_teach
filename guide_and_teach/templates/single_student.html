@@ -5,7 +5,6 @@
             <table class="cool">
                 <thead>
                     <tr>
-                        <td><strong>ID</strong></td>
                         <td><strong>Assignment</strong></td>
                         <td><strong>score</strong></td>
                     </tr>
@@ -14,8 +13,7 @@
                     {% for grade in grades %}
                     {% if grade.student == student %}
                     <tr>
-                        <td><a href="{{ url_for('single_grade', course_id=course_id, student_id=student.id, grade_id=grade.id) }}">Assignment {{ grade.id }}</a></td>
-                        <td>{{ grade.assignment }}</td> 
+                        <td><a href="{{ url_for('single_grade', course_id=course_id, student_id=student.id, grade_id=grade.id) }}"> {{ grade.assignment }}</a></td>
                         <td>{{ grade.score }}/{{ grade.max_score }}</td>
                     </tr>
                     {% endif %}
@@ -25,10 +23,12 @@
             </table>
             {% if student.user == current_user %}
             <div class="ralph">
+            <div class="btn-group btn-group ml-4 mr-4" role="group">
                 <a class="btn btn-primary btn-sm mt-1 mb-1" href="{{ url_for('add_grade', course_id=course_id, student_id=student.id) }}">Add Grade</a>
                 <a class="btn btn-info btn-sm mt-1 mb-1" href="{{ url_for('single_course', course_id=course_id) }}">Back to Course Overview</a>
                 <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{{ url_for('update_student', student_id=student.id, course_id=course_id) }}">Update Student Info</a>
-                <button type="button" class="btn btn-danger btn-sm m-1" data-toggle="modal" data-target="#deleteModal">Delete Student</button>
+                <button type="button" class="btn btn-danger btn-sm mb-1 mt-1" data-toggle="modal" data-target="#deleteModal">Delete Student</button>
+            </div>
             </div>
             {% endif %}
         </article>
