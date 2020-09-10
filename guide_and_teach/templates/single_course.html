@@ -1,21 +1,15 @@
 {% extends "layout.html" %}
 {% block content %}
         <article>
-            <table class="yes">
+            <h1>{{ course.course_title }}</h1>
+            <div class="course_desc"><p>{{ course.course_desc }}</p></div>
+            <table class="table-striped">  
                 <thead>
-                    <tr>
-                        <td class="m-1 p-2"><strong>{{ course.course_title }}</strong></td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <p>{{ course.course_desc }}</p>
-                        </td>
-                    </tr>
-                </thead>
-                <tbody>
                     <tr>
                         <td><strong>Students:</strong></td>
                     </tr>
+                </thead>
+                <tbody>
                     {% for student in students %}
                     {% if student.course == course %}
                     <tr>
