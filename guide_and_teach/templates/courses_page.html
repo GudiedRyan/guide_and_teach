@@ -4,10 +4,10 @@
     {% for course in courses %}
     {% if course.user == current_user %}
         <article>
-            <table class="yes">
+            <table>
                 <thead>
                     <tr>
-                        <td><a href="{{ url_for('single_course', course_id=course.id) }}">{{ course.course_title }}</a></td>
+                        <td><a class="white" href="{{ url_for('single_course', course_id=course.id) }}">{{ course.course_title }}</a></td>
                     </tr>
                 </thead>
                 <tbody>
