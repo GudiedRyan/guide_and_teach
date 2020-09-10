@@ -6,7 +6,7 @@
                 <thead>
                     <tr>
                         <td><strong>Assignment</strong></td>
-                        <td><strong>score</strong></td>
+                        <td><strong>Grade</strong></td>
                     </tr>
                 </thead>
                 <tbody>
@@ -18,9 +18,11 @@
             </table>
             {% if grade.user == current_user %}
             <div class="ralph">
+            <div class="btn-group btn-group ml-4 mr-4" role="group">
                 <a class="btn btn-info btn-sm mt-1 mb-1" href="{{ url_for('single_student', course_id=course_id, student_id=student_id) }}">Back to Student Overview</a>
                 <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{{ url_for('update_grade', student_id=student_id, course_id=course_id, grade_id=grade.id) }}">Update Grading Info</a>
-                <button type="button" class="btn btn-danger btn-sm m-1" data-toggle="modal" data-target="#deleteModal">Delete Grade</button>
+                <button type="button" class="btn btn-danger btn-sm mt-1 mb-1" data-toggle="modal" data-target="#deleteModal">Delete Grade</button>
+            </div>
             </div>
             {% endif %}
         </article>
