@@ -176,7 +176,7 @@ def single_grade(student_id, course_id, grade_id):
     grade = Grade.query.get_or_404(grade_id)
     if grade.user != current_user:
         abort(403)
-    return render_template('single_grade.html', title=grade.id, student_id=student_id, course_id=course_id, grade=grade)
+    return render_template('single_grade.html', title="Grade", student_id=student_id, course_id=course_id, grade=grade)
 
 @app.route('/course/<int:course_id>/student/<int:student_id>/grade/<int:grade_id>/update', methods=['GET', 'POST'])
 @login_required

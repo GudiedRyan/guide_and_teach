@@ -1,8 +1,10 @@
 {% extends "layout.html" %}
 {% block content %}
     <h1>Courses</h1>
+    <div class="about">
     <div class="course_desc">
         <p>To access, view, or change any information within the course, click on the course title.</p>
+    </div>
     </div>
     {% for course in courses %}
     {% if course.user == current_user %}

@@ -8,6 +8,9 @@ p {
     border: 1px solid #dddddd;
     border-radius: 3px;
     margin-bottom: 20px;
+    margin-left: 10%;
+    margin-right: 10%;
+    margin-top: 5px;
   }
   
   .site-header .navbar-nav .nav-link {
