@@ -126,7 +126,7 @@ def single_student(student_id, course_id):
     if student.user != current_user:
         abort(403)
     grades = Grade.query.all()
-    return render_template('single_student.html', title="student.student_name", student=student, course_id=course_id, grades=grades)
+    return render_template('single_student.html', title="Student", student=student, course_id=course_id, grades=grades)
 
 @app.route('/course/<int:course_id>/student/<int:student_id>/delete', methods=['POST'])
 @login_required
