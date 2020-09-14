@@ -1,1 +1,1 @@
-web: gunicorn run:guide_and_teach
+web: gunicorn app:app
