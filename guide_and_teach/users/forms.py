@@ -25,18 +25,3 @@ class LoginForm(FlaskForm):
     password = PasswordField('Password', validators=[DataRequired()])
     remember = BooleanField('Remember Me')
     submit = SubmitField('Log In')
-
-class CourseForm(FlaskForm):
-    title = StringField('Title', validators=[DataRequired()])
-    description = TextAreaField('Course Description', validators=[DataRequired()])
-    submit = SubmitField('Finish')
-
-class StudentForm(FlaskForm):
-    student_name = StringField('Student Name', validators=[DataRequired()])
-    submit = SubmitField('Finish Changes')
-
-class GradeForm(FlaskForm):
-    assignment = StringField('Assignment', validators=[DataRequired()])
-    score = StringField('Score', validators=[DataRequired()])
-    max_score = StringField('Maximum Possible Score', validators=[DataRequired()])
-    submit = SubmitField('Add Changes')

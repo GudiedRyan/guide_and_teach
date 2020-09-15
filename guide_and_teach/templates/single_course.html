@@ -13,7 +13,7 @@
                     {% for student in students %}
                     {% if student.course == course %}
                     <tr>
-                        <td><a href="{{ url_for('single_student', student_id=student.id, course_id=course.id) }}">{{ student.student_name }}</a></td>
+                        <td><a href="{{ url_for('students.single_student', student_id=student.id, course_id=course.id) }}">{{ student.student_name }}</a></td>
                     </tr>
                     {% endif %}
                     {% endfor %}
@@ -22,9 +22,9 @@
             {% if course.user == current_user %}
             <div class="ralph">
             <div class="btn-group btn-group ml-4 mr-4" role="group">
-                <a class="btn btn-primary btn-sm mt-1 mb-1 m-1" href="{{ url_for('add_student', course_id=course.id) }}">Add Student</a>
-                <a class="btn btn-info btn-sm mt-1 mb-1 m-1" href="{{ url_for('course_home') }}">Back to Courses</a>
-                <a class="btn btn-secondary btn-sm mt-1 mb-1 m-1" href="{{ url_for('update_course', course_id=course.id)}}">Update Course Information</a>
+                <a class="btn btn-primary btn-sm mt-1 mb-1 m-1" href="{{ url_for('students.add_student', course_id=course.id) }}">Add Student</a>
+                <a class="btn btn-info btn-sm mt-1 mb-1 m-1" href="{{ url_for('courses.course_home') }}">Back to Courses</a>
+                <a class="btn btn-secondary btn-sm mt-1 mb-1 m-1" href="{{ url_for('courses.update_course', course_id=course.id)}}">Update Course Information</a>
                 <button type="button" class="btn btn-danger btn-sm mt-1 mb-1 m-1" data-toggle="modal" data-target="#deleteModal">Delete</button>
             </div>
             </div>
@@ -42,7 +42,7 @@
                 </div>
                 <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                <form action="{{ url_for('delete_course', course_id=course.id) }}" method="POST">
+                <form action="{{ url_for('courses.delete_course', course_id=course.id) }}" method="POST">
                     <input class="btn btn-danger" type="submit" value="Delete">
                 </form>
                 </div>

@@ -1,4 +1,6 @@
-from guide_and_teach import app
+from guide_and_teach import create_app
+
+app = create_app()
 
 if __name__ == '__main__':
-    app.run(threaded=True)
+    app.run(debug=True)

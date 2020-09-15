@@ -13,7 +13,7 @@
                     {% for grade in grades %}
                     {% if grade.student == student %}
                     <tr>
-                        <td><a href="{{ url_for('single_grade', course_id=course_id, student_id=student.id, grade_id=grade.id) }}"> {{ grade.assignment }}</a></td>
+                        <td><a href="{{ url_for('grades.single_grade', course_id=course_id, student_id=student.id, grade_id=grade.id) }}"> {{ grade.assignment }}</a></td>
                         <td>{{ grade.score }}/{{ grade.max_score }}</td>
                     </tr>
                     {% endif %}
@@ -24,9 +24,9 @@
             {% if student.user == current_user %}
             <div class="ralph">
             <div class="btn-group btn-group ml-4 mr-4" role="group">
-                <a class="btn btn-primary btn-sm mt-1 mb-1 m-1" href="{{ url_for('add_grade', course_id=course_id, student_id=student.id) }}">Add Grade</a>
-                <a class="btn btn-info btn-sm mt-1 mb-1 m-1" href="{{ url_for('single_course', course_id=course_id) }}">Back to Course Overview</a>
-                <a class="btn btn-secondary btn-sm mt-1 mb-1 m-1" href="{{ url_for('update_student', student_id=student.id, course_id=course_id) }}">Update Student Info</a>
+                <a class="btn btn-primary btn-sm mt-1 mb-1 m-1" href="{{ url_for('grades.add_grade', course_id=course_id, student_id=student.id) }}">Add Grade</a>
+                <a class="btn btn-info btn-sm mt-1 mb-1 m-1" href="{{ url_for('courses.single_course', course_id=course_id) }}">Back to Course Overview</a>
+                <a class="btn btn-secondary btn-sm mt-1 mb-1 m-1" href="{{ url_for('students.update_student', student_id=student.id, course_id=course_id) }}">Update Student Info</a>
                 <button type="button" class="btn btn-danger btn-sm mb-1 mt-1 m-1" data-toggle="modal" data-target="#deleteModal">Delete Student</button>
             </div>
             </div>
@@ -44,7 +44,7 @@
                 </div>
                 <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                <form action="{{ url_for('delete_student', student_id=student.id, course_id=course_id) }}" method="POST">
+                <form action="{{ url_for('students.delete_student', student_id=student.id, course_id=course_id) }}" method="POST">
                     <input class="btn btn-danger" type="submit" value="Delete">
                 </form>
                 </div>

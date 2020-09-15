@@ -13,16 +13,16 @@
         <div class="" id="navbarSupportedContent">
           <ul class="navbar-nav mr-auto">
             <li class="nav-item">
-              <a class="nav-link" href="{{ url_for('home') }}">Home</a>
+              <a class="nav-link" href="{{ url_for('main.home') }}">Home</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="{{ url_for('course_home') }}">Courses</a>
+              <a class="nav-link" href="{{ url_for('courses.course_home') }}">Courses</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="{{ url_for('create_course') }}">Add a Course</a>
+              <a class="nav-link" href="{{ url_for('courses.create_course') }}">Add a Course</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="{{ url_for('logout') }}">Logout</a>
+              <a class="nav-link" href="{{ url_for('users.logout') }}">Logout</a>
             </li>
           </ul>
         </div>
@@ -30,13 +30,13 @@
         <div class="" id="navbarSupportedContent">
           <ul class="navbar-nav mr-auto">
             <li class="nav-item">
-              <a class="nav-link" href="{{ url_for('home') }}">Home</a>
+              <a class="nav-link" href="{{ url_for('main.home') }}">Home</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="{{ url_for('login') }}">Login</a>
+              <a class="nav-link" href="{{ url_for('users.login') }}">Login</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="{{ url_for('register') }}">Register</a>
+              <a class="nav-link" href="{{ url_for('users.register') }}">Register</a>
             </li>
           </ul>
         </div>
