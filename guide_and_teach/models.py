@@ -1,4 +1,5 @@
-from guide_and_teach import db, app, login_manager
+from flask import current_app
+from guide_and_teach import db, login_manager
 from flask_login import UserMixin
 
 @login_manager.user_loader
