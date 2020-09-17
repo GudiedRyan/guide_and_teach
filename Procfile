@@ -1,1 +1,1 @@
-web: gunicorn --bind 0.0.0.0:$PORT run:app
+web: flask db upgrade; flask translate compile; gunicorn --bind 0.0.0.0:$PORT run:app
